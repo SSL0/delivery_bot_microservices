@@ -30,8 +30,9 @@ func Migrate(migrationsPath string, DBUrl string) error {
 	defer m.Close()
 
 	err = m.Up()
-	if err != nil {
+	if err != nil && err != migrate.ErrNoChange {
 		m.Down()
+		return err
 	}
-	return err
+	return nil
 }

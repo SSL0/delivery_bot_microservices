@@ -23,10 +23,17 @@ func main() {
 	}
 
 	repo := repository.NewRepository(postgres)
-	product, err := repo.GetProductInfoByID(1)
-
+	product, err := repo.GetProductByID(1)
 	if err != nil {
 		panic(err)
 	}
-	fmt.Println(product)
+	fmt.Println("Product: ", product)
+	toppings, err := repo.GetToppingsByProductID(1)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println("List of toppings to this product: ")
+	for _, topping := range toppings {
+		fmt.Println(topping)
+	}
 }
