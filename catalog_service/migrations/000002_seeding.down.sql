@@ -1,0 +1,1 @@
+DROP * FROM products
