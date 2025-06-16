@@ -9,13 +9,9 @@ CREATE TABLE products (
 
 CREATE TABLE toppings (
     id SERIAL PRIMARY KEY,
+    product_id INT REFERENCES products (id) ON DELETE CASCADE,
     name VARCHAR(255),
     price MONEY
 );
 
-CREATE TABLE topping_product (
-    id SERIAL PRIMARY KEY,
-    product_id INT REFERENCES products(id) ON DELETE CASCADE,
-    topping_id INT REFERENCES toppings(id) ON DELETE CASCADE
-);
 COMMIT;
