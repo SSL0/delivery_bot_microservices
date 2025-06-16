@@ -6,7 +6,6 @@ import (
 	"cart_service/pkg/proto"
 	"cart_service/pkg/repository"
 	"context"
-	"database/sql"
 	"log"
 
 	"google.golang.org/grpc/codes"
@@ -28,24 +27,28 @@ func NewCartServer(repo *repository.Repository, svc *client.CatalogClient) *Cart
 
 func (s *CartServer) AddItem(ctx context.Context, req *proto.AddItemRequest) (*proto.AddItemResponse, error) {
 	log.Printf("AddItem requested: user_id %v, item_id %v, type %v", req.UserId, req.ItemId, req.ItemType)
-	cartId, err := s.repo.GetCartIdByUserId(req.UserId)
+	cartId, err := s.repo.GetOrCreateCartIdByUserId(req.UserId)
 
 	if err != nil {
-		if err == sql.ErrNoRows {
-			// TODO: create new cart
-		} else {
-			return nil, status.Errorf(codes.Internal, "failed to get cart by user id %v", err)
-		}
+		log.Printf("failed to get cart by user id %v", err)
+		return nil, status.Errorf(codes.Internal, "failed to get cart by user id %v", err)
 	}
+
 	var price string
 	if req.ItemType == "product" {
 		product, err := s.catalogService.GetProduct(req.ItemId)
 		if err != nil {
+			log.Printf("failed to get product %v", err)
 			return nil, err
 		}
 		price = product.Product.Price
 	} else if req.ItemType == "topping" {
-		// TODO: check for topping
+		topping, err := s.catalogService.GetTopping(req.ItemId)
+		if err != nil {
+			log.Printf("failed to get toppong %v", err)
+			return nil, err
+		}
+		price = topping.Topping.Price
 	} else {
 		return nil, status.Errorf(codes.Internal, "unknown item type")
 	}

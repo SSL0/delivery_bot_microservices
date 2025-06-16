@@ -42,3 +42,11 @@ func (c *CatalogClient) GetProductToppings(productId uint64) (*proto.GetProductT
 
 	return c.Client.GetProductToppings(context.Background(), req)
 }
+
+func (c *CatalogClient) GetTopping(toppingId uint64) (*proto.GetToppingResponse, error) {
+	req := &proto.GetToppingRequest{
+		Id: toppingId,
+	}
+
+	return c.Client.GetTopping(context.Background(), req)
+}

@@ -2,6 +2,7 @@ package repository
 
 import (
 	"cart_service/pkg/model"
+	"database/sql"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -60,11 +61,17 @@ func (r *CartRepository) RemoveCartItemById(id uint64) error {
 	return err
 }
 
-func (r *CartRepository) GetCartIdByUserId(userId uint64) (uint64, error) {
+func (r *CartRepository) GetOrCreateCartIdByUserId(userId uint64) (uint64, error) {
 	var result uint64
 	err := r.db.QueryRowx("SELECT id FROM carts WHERE user_id = $1 LIMIT 1", userId).Scan(&result)
 	if err != nil {
-		return 0, err
+		if err != sql.ErrNoRows {
+			return 0, err
+		}
+		err = r.db.QueryRowx("INSERT INTO carts (user_id) VALUES ($1) RETURNING id", userId).Scan(&result)
+		if err != nil {
+			return 0, err
+		}
 	}
 	return result, nil
 }
