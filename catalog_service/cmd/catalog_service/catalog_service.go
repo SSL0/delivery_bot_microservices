@@ -23,10 +23,6 @@ func main() {
 	}
 	defer postgres.Close()
 
-	if err != nil {
-		log.Fatalf("failed to migrate: %v", err)
-	}
-
 	grpcServer := grpc.NewServer()
 
 	repo := repository.NewRepository(postgres)
