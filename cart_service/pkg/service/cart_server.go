@@ -4,7 +4,7 @@ import (
 	"cart_service/pkg/client"
 	"cart_service/pkg/model"
 	"cart_service/pkg/proto"
-	"cart_service/pkg/repo"
+	"cart_service/pkg/repository"
 	"context"
 	"database/sql"
 	"log"
@@ -15,11 +15,11 @@ import (
 
 type CartServer struct {
 	proto.UnimplementedCartServer
-	repo           *repo.Repository
+	repo           *repository.Repository
 	catalogService client.CatalogClient
 }
 
-func NewCartServer(repo *repo.Repository, svc client.CatalogClient) *CartServer {
+func NewCartServer(repo *repository.Repository, svc client.CatalogClient) *CartServer {
 	return &CartServer{
 		repo:           repo,
 		catalogService: svc,

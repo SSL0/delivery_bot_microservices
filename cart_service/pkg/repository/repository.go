@@ -1,4 +1,4 @@
-package repo
+package repository
 
 import (
 	"cart_service/pkg/model"

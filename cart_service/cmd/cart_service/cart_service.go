@@ -3,7 +3,7 @@ package main
 import (
 	"cart_service/pkg/client"
 	"cart_service/pkg/config"
-	"cart_service/pkg/repo"
+	"cart_service/pkg/repository"
 	"log"
 )
 
@@ -12,7 +12,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to load config: %v", err)
 	}
-	postgres, err := repo.NewPostgresdb(config.DBUrl)
+	postgres, err := repository.NewPostgresdb(config.DBUrl)
 
 	if err != nil {
 		log.Fatalf("failed to create db connection: %v", err)
