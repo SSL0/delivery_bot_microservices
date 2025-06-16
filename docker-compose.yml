@@ -20,7 +20,6 @@ services:
     build:
       context: 
         ./migrations
-    entrypoint: ./migrate.sh
     restart: on-failure:5
     env_file:
       - path: ./default.env
