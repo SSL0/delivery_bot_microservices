@@ -55,9 +55,10 @@ func (s *CatalogService) GetProductToppings(
 	var pbToppings []*proto.Topping
 	for _, topping := range toppings {
 		pbToppings = append(pbToppings, &proto.Topping{
-			Id:    topping.Id,
-			Name:  topping.Name,
-			Price: topping.Price,
+			Id:        topping.Id,
+			ProductId: topping.ProductId,
+			Name:      topping.Name,
+			Price:     topping.Price,
 		})
 	}
 	log.Printf("GetProductToppings response: %v", pbToppings)

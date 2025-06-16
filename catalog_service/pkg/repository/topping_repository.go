@@ -2,6 +2,7 @@ package repository
 
 import (
 	"catalog_service/pkg/entity"
+	"log"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -23,9 +24,8 @@ func (r *ToppingRepository) GetToppingByID(id uint64) (entity.Topping, error) {
 func (r *ToppingRepository) GetToppingsByProductID(productID uint64) ([]entity.Topping, error) {
 	var result []entity.Topping
 	rows, err := r.db.Queryx(`
-			SELECT t.* FROM toppings t 
-			JOIN topping_product pt ON t.id = pt.topping_id
-			WHERE pt.product_id = $1
+			SELECT * FROM toppings 
+			WHERE product_id = $1
 		`, productID)
 	for rows.Next() {
 		var topping entity.Topping
@@ -35,5 +35,6 @@ func (r *ToppingRepository) GetToppingsByProductID(productID uint64) ([]entity.T
 
 		result = append(result, topping)
 	}
+	log.Println(result)
 	return result, err
 }
