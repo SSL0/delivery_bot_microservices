@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package cart;
+
+option go_package = "/proto";
+
+service Cart {
+    rpc AddItem(AddItemRequest) returns (AddItemResponse);
+}
+
+message AddItemRequest{
+    uint64 user_id = 1;
+    uint64 item_id = 2;
+    string item_type = 3;
+    uint32 quantity = 4;
+}
+
+message AddItemResponse {
+    uint64 added_cart_item_id = 1;
+}

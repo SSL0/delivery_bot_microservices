@@ -1,8 +1,9 @@
 package main
 
 import (
+	"cart_service/pkg/client"
 	"cart_service/pkg/config"
-	"cart_service/pkg/repository"
+	"cart_service/pkg/repo"
 	"log"
 )
 
@@ -11,19 +12,25 @@ func main() {
 	if err != nil {
 		log.Fatalf("failed to load config: %v", err)
 	}
-	postgres, err := repository.NewPostgresdb(config.DBUrl)
+	postgres, err := repo.NewPostgresdb(config.DBUrl)
 
 	if err != nil {
 		log.Fatalf("failed to create db connection: %v", err)
 	}
 	defer postgres.Close()
-	err = repository.Migrate(config.MigrationsPath, config.DBUrl)
-	if err != nil {
-		log.Fatalf("failed to migrate: %v", err)
-	}
 
-	repo := repository.NewRepository(postgres)
-	result, err := repo.GetCartById(1)
-	log.Printf("%v", result)
-	// service := service.NewCatalogService(repo)
+	productClient := client.InitCatalogClient(config.ProductServiceAddress)
+	result, err := productClient.GetProduct(1)
+
+	if err != nil {
+		log.Fatalf("failed to get products: %v", err)
+	}
+	log.Printf("sucessfult get product by id %v", result.Product)
+
+	// repo := repository.NewRepository(postgres)
+	// cartServer := service.NewCartServer(repo, &productClient)
+
+	// grpcServer := grpc.NewServer()
+	// proto.RegisterCartServer(grpcServer, cartServer)
+
 }

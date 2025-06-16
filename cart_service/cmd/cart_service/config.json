@@ -2,5 +2,6 @@
     "version": 1.0,
     "db_url": "$POSTGRES_URL",
     "migrations_path": "migrations",
-    "listening_address": ":5002"
+    "listening_address": ":5002",
+    "product_service_address": "localhost:5001"
 }

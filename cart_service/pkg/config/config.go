@@ -8,10 +8,11 @@ import (
 )
 
 type Config struct {
-	Version          float32 `mapstructure:"version"`
-	DBUrl            string  `mapstructure:"db_url"`
-	MigrationsPath   string  `mapstructure:"migrations_path"`
-	ListeningAddress string  `mapstructure:"listening_address"`
+	Version               float32 `mapstructure:"version"`
+	DBUrl                 string  `mapstructure:"db_url"`
+	MigrationsPath        string  `mapstructure:"migrations_path"`
+	ListeningAddress      string  `mapstructure:"listening_address"`
+	ProductServiceAddress string  `mapstructure:"product_service_address"`
 }
 
 func LoadConfig(path string) (Config, error) {
