@@ -8,7 +8,6 @@ RUN go build -o ./cmd/catalog_service/catalog_service ./cmd/catalog_service/cata
 FROM alpine:3.22
 WORKDIR /app
 COPY --from=build /app/cmd/catalog_service/catalog_service ./cmd/catalog_service/catalog_service
-COPY ./migrations/ ./migrations
 COPY ./cmd/catalog_service/config.json ./cmd/catalog_service/
 
 EXPOSE 5001

@@ -1,4 +1,0 @@
-BEGIN;
-DROP TABLE products;
-DROP TABLE toppings;
-COMMIT;
