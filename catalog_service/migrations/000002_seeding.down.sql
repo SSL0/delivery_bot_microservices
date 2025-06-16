@@ -1,3 +1,0 @@
-BEGIN;
-DROP * FROM products
-COMMIT;

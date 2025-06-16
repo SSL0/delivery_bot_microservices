@@ -22,7 +22,7 @@ func main() {
 		log.Fatalf("failed to create db connection: %v", err)
 	}
 	defer postgres.Close()
-	err = repository.Migrate(config.MigrationsPath, config.DBUrl)
+
 	if err != nil {
 		log.Fatalf("failed to migrate: %v", err)
 	}
