@@ -35,7 +35,7 @@ func (s *CatalogService) GetProduct(ctx context.Context, req *proto.GetProductRe
 		Name:        product.Name,
 		Price:       product.Price,
 		Description: product.Description,
-		Type:        product.Price,
+		Type:        product.Type,
 	}
 
 	log.Printf("GetProduct response: %v", pbProduct)
