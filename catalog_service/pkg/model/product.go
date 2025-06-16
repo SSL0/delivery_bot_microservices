@@ -1,4 +1,4 @@
-package entity
+package model
 
 type Product struct {
 	Id          uint64

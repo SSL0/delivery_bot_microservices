@@ -1,18 +1,18 @@
 package repository
 
 import (
-	"catalog_service/pkg/entity"
+	"catalog_service/pkg/model"
 
 	"github.com/jmoiron/sqlx"
 )
 
 type Topping interface {
-	GetToppingByID(id uint64) (entity.Topping, error)
-	GetToppingsByProductID(productID uint64) ([]entity.Topping, error)
+	GetToppingByID(id uint64) (model.Topping, error)
+	GetToppingsByProductID(productID uint64) ([]model.Topping, error)
 }
 
 type Product interface {
-	GetProductByID(id uint64) (entity.Product, error)
+	GetProductByID(id uint64) (model.Product, error)
 }
 
 type Repository struct {
