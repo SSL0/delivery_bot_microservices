@@ -7,6 +7,7 @@ option go_package = "/proto";
 service Catalog {
     rpc GetProduct(GetProductRequest) returns (GetProductResponse);
     rpc GetProductToppings(GetProductRequest) returns (GetProductToppingsResponse);
+    rpc GetTopping(GetToppingRequest) returns (GetToppingResponse);
 }
 
 message Product {
@@ -36,3 +37,10 @@ message GetProductToppingsResponse {
     repeated Topping toppings = 1;
 }
 
+message GetToppingRequest {
+    uint64 id = 1;
+}
+
+message GetToppingResponse {
+    Topping topping = 1;
+}

@@ -297,6 +297,94 @@ func (x *GetProductToppingsResponse) GetToppings() []*Topping {
 	return nil
 }
 
+type GetToppingRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            uint64                 `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetToppingRequest) Reset() {
+	*x = GetToppingRequest{}
+	mi := &file_pkg_proto_catalog_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetToppingRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetToppingRequest) ProtoMessage() {}
+
+func (x *GetToppingRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_proto_catalog_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetToppingRequest.ProtoReflect.Descriptor instead.
+func (*GetToppingRequest) Descriptor() ([]byte, []int) {
+	return file_pkg_proto_catalog_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *GetToppingRequest) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+type GetToppingResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Topping       *Topping               `protobuf:"bytes,1,opt,name=topping,proto3" json:"topping,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *GetToppingResponse) Reset() {
+	*x = GetToppingResponse{}
+	mi := &file_pkg_proto_catalog_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *GetToppingResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*GetToppingResponse) ProtoMessage() {}
+
+func (x *GetToppingResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_pkg_proto_catalog_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use GetToppingResponse.ProtoReflect.Descriptor instead.
+func (*GetToppingResponse) Descriptor() ([]byte, []int) {
+	return file_pkg_proto_catalog_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *GetToppingResponse) GetTopping() *Topping {
+	if x != nil {
+		return x.Topping
+	}
+	return nil
+}
+
 var File_pkg_proto_catalog_proto protoreflect.FileDescriptor
 
 const file_pkg_proto_catalog_proto_rawDesc = "" +
@@ -319,11 +407,17 @@ const file_pkg_proto_catalog_proto_rawDesc = "" +
 	"\x12GetProductResponse\x12*\n" +
 	"\aproduct\x18\x01 \x01(\v2\x10.catalog.ProductR\aproduct\"J\n" +
 	"\x1aGetProductToppingsResponse\x12,\n" +
-	"\btoppings\x18\x01 \x03(\v2\x10.catalog.ToppingR\btoppings2\xa7\x01\n" +
+	"\btoppings\x18\x01 \x03(\v2\x10.catalog.ToppingR\btoppings\"#\n" +
+	"\x11GetToppingRequest\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\x04R\x02id\"@\n" +
+	"\x12GetToppingResponse\x12*\n" +
+	"\atopping\x18\x01 \x01(\v2\x10.catalog.ToppingR\atopping2\xee\x01\n" +
 	"\aCatalog\x12E\n" +
 	"\n" +
 	"GetProduct\x12\x1a.catalog.GetProductRequest\x1a\x1b.catalog.GetProductResponse\x12U\n" +
-	"\x12GetProductToppings\x12\x1a.catalog.GetProductRequest\x1a#.catalog.GetProductToppingsResponseB\bZ\x06/protob\x06proto3"
+	"\x12GetProductToppings\x12\x1a.catalog.GetProductRequest\x1a#.catalog.GetProductToppingsResponse\x12E\n" +
+	"\n" +
+	"GetTopping\x12\x1a.catalog.GetToppingRequest\x1a\x1b.catalog.GetToppingResponseB\bZ\x06/protob\x06proto3"
 
 var (
 	file_pkg_proto_catalog_proto_rawDescOnce sync.Once
@@ -337,26 +431,31 @@ func file_pkg_proto_catalog_proto_rawDescGZIP() []byte {
 	return file_pkg_proto_catalog_proto_rawDescData
 }
 
-var file_pkg_proto_catalog_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_pkg_proto_catalog_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_pkg_proto_catalog_proto_goTypes = []any{
 	(*Product)(nil),                    // 0: catalog.Product
 	(*Topping)(nil),                    // 1: catalog.Topping
 	(*GetProductRequest)(nil),          // 2: catalog.GetProductRequest
 	(*GetProductResponse)(nil),         // 3: catalog.GetProductResponse
 	(*GetProductToppingsResponse)(nil), // 4: catalog.GetProductToppingsResponse
+	(*GetToppingRequest)(nil),          // 5: catalog.GetToppingRequest
+	(*GetToppingResponse)(nil),         // 6: catalog.GetToppingResponse
 }
 var file_pkg_proto_catalog_proto_depIdxs = []int32{
 	0, // 0: catalog.GetProductResponse.product:type_name -> catalog.Product
 	1, // 1: catalog.GetProductToppingsResponse.toppings:type_name -> catalog.Topping
-	2, // 2: catalog.Catalog.GetProduct:input_type -> catalog.GetProductRequest
-	2, // 3: catalog.Catalog.GetProductToppings:input_type -> catalog.GetProductRequest
-	3, // 4: catalog.Catalog.GetProduct:output_type -> catalog.GetProductResponse
-	4, // 5: catalog.Catalog.GetProductToppings:output_type -> catalog.GetProductToppingsResponse
-	4, // [4:6] is the sub-list for method output_type
-	2, // [2:4] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	1, // 2: catalog.GetToppingResponse.topping:type_name -> catalog.Topping
+	2, // 3: catalog.Catalog.GetProduct:input_type -> catalog.GetProductRequest
+	2, // 4: catalog.Catalog.GetProductToppings:input_type -> catalog.GetProductRequest
+	5, // 5: catalog.Catalog.GetTopping:input_type -> catalog.GetToppingRequest
+	3, // 6: catalog.Catalog.GetProduct:output_type -> catalog.GetProductResponse
+	4, // 7: catalog.Catalog.GetProductToppings:output_type -> catalog.GetProductToppingsResponse
+	6, // 8: catalog.Catalog.GetTopping:output_type -> catalog.GetToppingResponse
+	6, // [6:9] is the sub-list for method output_type
+	3, // [3:6] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_pkg_proto_catalog_proto_init() }
@@ -370,7 +469,7 @@ func file_pkg_proto_catalog_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pkg_proto_catalog_proto_rawDesc), len(file_pkg_proto_catalog_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   5,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

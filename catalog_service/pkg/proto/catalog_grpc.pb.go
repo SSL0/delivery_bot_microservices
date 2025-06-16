@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion8
 const (
 	Catalog_GetProduct_FullMethodName         = "/catalog.Catalog/GetProduct"
 	Catalog_GetProductToppings_FullMethodName = "/catalog.Catalog/GetProductToppings"
+	Catalog_GetTopping_FullMethodName         = "/catalog.Catalog/GetTopping"
 )
 
 // CatalogClient is the client API for Catalog service.
@@ -29,6 +30,7 @@ const (
 type CatalogClient interface {
 	GetProduct(ctx context.Context, in *GetProductRequest, opts ...grpc.CallOption) (*GetProductResponse, error)
 	GetProductToppings(ctx context.Context, in *GetProductRequest, opts ...grpc.CallOption) (*GetProductToppingsResponse, error)
+	GetTopping(ctx context.Context, in *GetToppingRequest, opts ...grpc.CallOption) (*GetToppingResponse, error)
 }
 
 type catalogClient struct {
@@ -59,12 +61,23 @@ func (c *catalogClient) GetProductToppings(ctx context.Context, in *GetProductRe
 	return out, nil
 }
 
+func (c *catalogClient) GetTopping(ctx context.Context, in *GetToppingRequest, opts ...grpc.CallOption) (*GetToppingResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetToppingResponse)
+	err := c.cc.Invoke(ctx, Catalog_GetTopping_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // CatalogServer is the server API for Catalog service.
 // All implementations must embed UnimplementedCatalogServer
 // for forward compatibility
 type CatalogServer interface {
 	GetProduct(context.Context, *GetProductRequest) (*GetProductResponse, error)
 	GetProductToppings(context.Context, *GetProductRequest) (*GetProductToppingsResponse, error)
+	GetTopping(context.Context, *GetToppingRequest) (*GetToppingResponse, error)
 	mustEmbedUnimplementedCatalogServer()
 }
 
@@ -77,6 +90,9 @@ func (UnimplementedCatalogServer) GetProduct(context.Context, *GetProductRequest
 }
 func (UnimplementedCatalogServer) GetProductToppings(context.Context, *GetProductRequest) (*GetProductToppingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetProductToppings not implemented")
+}
+func (UnimplementedCatalogServer) GetTopping(context.Context, *GetToppingRequest) (*GetToppingResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetTopping not implemented")
 }
 func (UnimplementedCatalogServer) mustEmbedUnimplementedCatalogServer() {}
 
@@ -127,6 +143,24 @@ func _Catalog_GetProductToppings_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _Catalog_GetTopping_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetToppingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(CatalogServer).GetTopping(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: Catalog_GetTopping_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(CatalogServer).GetTopping(ctx, req.(*GetToppingRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // Catalog_ServiceDesc is the grpc.ServiceDesc for Catalog service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -141,6 +175,10 @@ var Catalog_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetProductToppings",
 			Handler:    _Catalog_GetProductToppings_Handler,
+		},
+		{
+			MethodName: "GetTopping",
+			Handler:    _Catalog_GetTopping_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -22,11 +22,12 @@ func NewCatalogService(repo *repository.Repository) *CatalogService {
 }
 
 func (s *CatalogService) GetProduct(ctx context.Context, req *proto.GetProductRequest) (*proto.GetProductResponse, error) {
-	log.Printf("GetProduct request: %v", req.GetId())
+	log.Printf("GetProduct request: %v", req.Id)
 
-	product, err := s.repo.GetProductByID(req.GetId())
+	product, err := s.repo.GetProductByID(req.Id)
 
 	if err != nil {
+		log.Printf("failed to get toppings: %v", err)
 		return nil, status.Errorf(codes.Internal, "failed to get toppings: %v", err)
 	}
 
@@ -47,9 +48,10 @@ func (s *CatalogService) GetProductToppings(
 	ctx context.Context,
 	req *proto.GetProductRequest,
 ) (*proto.GetProductToppingsResponse, error) {
-	log.Printf("GetProductToppings request: %v", req.GetId())
-	toppings, err := s.repo.GetToppingsByProductID(req.GetId())
+	log.Printf("GetProductToppings request: %v", req.Id)
+	toppings, err := s.repo.GetToppingsByProductID(req.Id)
 	if err != nil {
+		log.Printf("failed to get toppings: %v", err)
 		return nil, status.Errorf(codes.Internal, "failed to get toppings: %v", err)
 	}
 	var pbToppings []*proto.Topping
@@ -65,5 +67,28 @@ func (s *CatalogService) GetProductToppings(
 
 	return &proto.GetProductToppingsResponse{
 		Toppings: pbToppings,
+	}, nil
+}
+
+func (s *CatalogService) GetTopping(
+	ctx context.Context,
+	req *proto.GetToppingRequest,
+) (*proto.GetToppingResponse, error) {
+	log.Printf("GetTopping request: %v", req.Id)
+	topping, err := s.repo.GetToppingByID(req.Id)
+	if err != nil {
+		log.Printf("failed to get topping: %v", err)
+		return nil, status.Errorf(codes.Internal, "failed to get topping: %v", err)
+	}
+	pbTopping := &proto.Topping{
+		Id:        topping.Id,
+		ProductId: topping.ProductId,
+		Name:      topping.Name,
+		Price:     topping.Price,
+	}
+	log.Printf("GetProductToppings response: %v", pbTopping)
+
+	return &proto.GetToppingResponse{
+		Topping: pbTopping,
 	}, nil
 }

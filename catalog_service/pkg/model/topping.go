@@ -1,4 +1,4 @@
-package entity
+package model
 
 type Topping struct {
 	Id        uint64
