@@ -1,4 +1,4 @@
-package repo
+package repository
 
 import (
 	"cart_service/pkg/model"
@@ -49,13 +49,9 @@ func (r *CartRepository) AddItemToCartById(cart_id uint64, item model.CartItem) 
 			price,
 			quantity
 		)  VALUES (
-			:cart_id,
-			:item_id,
-			:type,
-			:price,
-			:quantity
+			$1, $2, $3, $4, $5
 		) RETURNING id
-	`, item).Scan(&createdId)
+	`, item.CartId, item.ItemId, item.Type, item.Price, item.Quantity).Scan(&createdId)
 	return createdId, err
 }
 

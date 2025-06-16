@@ -16,10 +16,10 @@ import (
 type CartServer struct {
 	proto.UnimplementedCartServer
 	repo           *repository.Repository
-	catalogService client.CatalogClient
+	catalogService *client.CatalogClient
 }
 
-func NewCartServer(repo *repository.Repository, svc client.CatalogClient) *CartServer {
+func NewCartServer(repo *repository.Repository, svc *client.CatalogClient) *CartServer {
 	return &CartServer{
 		repo:           repo,
 		catalogService: svc,
@@ -37,8 +37,16 @@ func (s *CartServer) AddItem(ctx context.Context, req *proto.AddItemRequest) (*p
 			return nil, status.Errorf(codes.Internal, "failed to get cart by user id %v", err)
 		}
 	}
-
-	if req.ItemType != "product" && req.ItemType != "topping" {
+	var price string
+	if req.ItemType == "product" {
+		product, err := s.catalogService.GetProduct(req.ItemId)
+		if err != nil {
+			return nil, err
+		}
+		price = product.Product.Price
+	} else if req.ItemType == "topping" {
+		// TODO: check for topping
+	} else {
 		return nil, status.Errorf(codes.Internal, "unknown item type")
 	}
 
@@ -46,8 +54,10 @@ func (s *CartServer) AddItem(ctx context.Context, req *proto.AddItemRequest) (*p
 		CartId:   cartId,
 		ItemId:   req.ItemId,
 		Type:     req.ItemType,
+		Price:    price,
 		Quantity: req.Quantity,
 	}
+	log.Printf("%v", item)
 	createdId, err := s.repo.AddItemToCartById(cartId, item)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to add item: %v", err)
