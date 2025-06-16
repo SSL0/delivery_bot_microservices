@@ -16,22 +16,19 @@ services:
       PGDATA: /data/pgdata
     volumes:
         - ./pgdata:/data/pgdata
-
-#   postgres_migration:
-#     build:
-#       context: .
-#     image: golang:1.22.0-alpine
-#     entrypoint: ./db/migrate.sh
-#     restart: on-failure:5
-#     env_file:
-#       - path: ./default.env
-#         required: true
-#       - path: ./.env
-#         required: false
-#     depends_on:
-#       postgres:
-#         condition: service_healthy
-
+  catalog_service:
+    build:
+      context: catalog_service/
+    ports:
+      - "5001:5001"
+    restart: on-failure:5
+    depends_on:
+      - postgres
+    env_file:
+      - path: ./default.env
+        required: true
+      - path: ./.env
+        required: false
 volumes:
   pgdata:
     driver: local

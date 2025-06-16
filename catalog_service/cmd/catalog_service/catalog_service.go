@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	config, err := config.LoadConfig("./config.json")
+	config, err := config.LoadConfig("./cmd/catalog_service/config.json")
 	if err != nil {
 		log.Fatalf("failed to load config: %v", err)
 	}
