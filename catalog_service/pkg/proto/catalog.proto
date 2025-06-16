@@ -19,8 +19,9 @@ message Product {
 
 message Topping {
     uint64 id = 1;
-    string name = 2;
-    string price = 3;
+    uint64 product_id = 2;
+    string name = 3;
+    string price = 4;
 }
 
 message GetProductRequest {
