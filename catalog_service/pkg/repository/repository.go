@@ -7,12 +7,12 @@ import (
 )
 
 type Topping interface {
-	GetToppingByID(id int) (entity.Topping, error)
-	GetToppingsByProductID(productID int) ([]entity.Topping, error)
+	GetToppingByID(id uint64) (entity.Topping, error)
+	GetToppingsByProductID(productID uint64) ([]entity.Topping, error)
 }
 
 type Product interface {
-	GetProductByID(id int) (entity.Product, error)
+	GetProductByID(id uint64) (entity.Product, error)
 }
 
 type Repository struct {

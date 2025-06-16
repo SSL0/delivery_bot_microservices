@@ -1,7 +1,7 @@
 package entity
 
 type Topping struct {
-	Id    int
+	Id    uint64
 	Name  string
 	Price string
 }

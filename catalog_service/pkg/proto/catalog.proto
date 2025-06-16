@@ -2,27 +2,29 @@ syntax = "proto3";
 
 package catalog;
 
+option go_package = "/proto";
+
 service Catalog {
     rpc GetProduct(GetProductRequest) returns (GetProductResponse);
     rpc GetProductToppings(GetProductRequest) returns (GetProductToppingsResponse);
 }
 
 message Product {
-    int64 id = 1;
+    uint64 id = 1;
     string name = 2;
     string price = 3;
-    string text = 4;
+    string description = 4;
     string type = 5;
 }
 
 message Topping {
-    int64 id = 1;
+    uint64 id = 1;
     string name = 2;
     string price = 3;
 }
 
 message GetProductRequest {
-    int64 id = 1;
+    uint64 id = 1;
 }
 
 message GetProductResponse {

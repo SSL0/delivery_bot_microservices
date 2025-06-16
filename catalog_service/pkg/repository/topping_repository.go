@@ -14,13 +14,13 @@ func NewToppingRepository(db *sqlx.DB) *ToppingRepository {
 	return &ToppingRepository{db}
 }
 
-func (r *ToppingRepository) GetToppingByID(id int) (entity.Topping, error) {
+func (r *ToppingRepository) GetToppingByID(id uint64) (entity.Topping, error) {
 	var result entity.Topping
 	err := r.db.QueryRowx("SELECT * FROM toppings WHERE id = $1 LIMIT 1", id).StructScan(&result)
 	return result, err
 }
 
-func (r *ToppingRepository) GetToppingsByProductID(productID int) ([]entity.Topping, error) {
+func (r *ToppingRepository) GetToppingsByProductID(productID uint64) ([]entity.Topping, error) {
 	var result []entity.Topping
 	rows, err := r.db.Queryx(`
 			SELECT t.* FROM toppings t 
