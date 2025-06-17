@@ -45,7 +45,7 @@ func (s *CartServer) AddItem(ctx context.Context, req *proto.AddItemRequest) (*p
 	} else if req.ItemType == "topping" {
 		topping, err := s.catalogService.GetTopping(req.ItemId)
 		if err != nil {
-			log.Printf("failed to get toppong %v", err)
+			log.Printf("failed to get topping %v", err)
 			return nil, err
 		}
 		price = topping.Topping.Price
@@ -67,4 +67,15 @@ func (s *CartServer) AddItem(ctx context.Context, req *proto.AddItemRequest) (*p
 	}
 	log.Printf("AddItem response: created_cart_item_id %v", req.UserId)
 	return &proto.AddItemResponse{AddedCartItemId: createdId}, nil
+}
+
+func (s *CartServer) RemoveCartItem(ctx context.Context, req *proto.RemoveCartItemRequest) (*proto.RemoveCartItemResponse, error) {
+	log.Printf("RemoveCartItem requested: cart_item_id %v", req.CartItemId)
+	err := s.repo.RemoveCartItemById(req.CartItemId)
+	if err != nil {
+		log.Printf("failed to remove cart item by id: %v", err)
+		return nil, status.Errorf(codes.Internal, "failed to remove cart item by id: %v", err)
+	}
+
+	return &proto.RemoveCartItemResponse{}, nil
 }
