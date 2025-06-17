@@ -3,5 +3,5 @@
     "db_url": "$POSTGRES_URL",
     "migrations_path": "migrations",
     "listening_address": ":5002",
-    "product_service_address": "localhost:5001"
+    "catalog_service_address": "catalog_service:5001"
 }

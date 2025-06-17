@@ -24,7 +24,7 @@ func main() {
 	}
 	defer postgres.Close()
 
-	productClient := client.InitCatalogClient(config.ProductServiceAddress)
+	productClient := client.InitCatalogClient(config.CatalogServiceAddress)
 	// result, err := productClient.GetProduct(1)
 
 	// if err != nil {

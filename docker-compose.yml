@@ -20,7 +20,7 @@ services:
     build:
       context: 
         ./migrations
-    entrypoint: ./migrate.sh
+    # entrypoint: /app/migrate.sh
     restart: on-failure:5
     env_file:
       - path: ./default.env
@@ -36,6 +36,22 @@ services:
       context: catalog_service/
     ports:
       - "5001:5001"
+    restart: on-failure:5
+    depends_on:
+      postgres:
+        condition: service_healthy
+      postgres_migration:
+        condition: service_completed_successfully
+    env_file:
+      - path: ./default.env
+        required: true
+      - path: ./.env
+        required: false
+  cart_service:
+    build:
+      context: cart_service/
+    ports:
+      - "5002:5002"
     restart: on-failure:5
     depends_on:
       postgres:
