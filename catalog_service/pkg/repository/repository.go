@@ -13,6 +13,7 @@ type Topping interface {
 
 type Product interface {
 	GetProductByID(id uint64) (model.Product, error)
+	GetProductsByType(productType string) ([]model.Product, error)
 }
 
 type Repository struct {

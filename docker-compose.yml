@@ -29,8 +29,7 @@ services:
         required: false
     depends_on:
       postgres:
-        condition: service_healthy
-        
+        condition: service_healthy 
   catalog_service:
     build:
       context: catalog_service/

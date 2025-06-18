@@ -8,7 +8,16 @@ service Catalog {
     rpc GetProduct(GetProductRequest) returns (GetProductResponse);
     rpc GetProductToppings(GetProductRequest) returns (GetProductToppingsResponse);
     rpc GetTopping(GetToppingRequest) returns (GetToppingResponse);
+    rpc GetProductsByType(GetProductsByTypeRequest) returns (GetProductsByTypeResponse);
 }
+
+message GetProductsByTypeRequest {
+    string type = 1;
+}
+
+message GetProductsByTypeResponse {
+    repeated Product products = 1;
+} 
 
 message Product {
     uint64 id = 1;

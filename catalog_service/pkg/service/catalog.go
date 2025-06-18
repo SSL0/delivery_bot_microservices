@@ -92,3 +92,32 @@ func (s *CatalogService) GetTopping(
 		Topping: pbTopping,
 	}, nil
 }
+
+func (s *CatalogService) GetProductsByType(
+	ctx context.Context,
+	req *proto.GetProductsByTypeRequest,
+) (*proto.GetProductsByTypeResponse, error) {
+	log.Printf("GetProductByType request: %v", req.Type)
+
+	products, err := s.repo.GetProductsByType(req.Type)
+
+	if err != nil {
+		log.Printf("failed to get products by type: %v", err)
+		return nil, status.Errorf(codes.Internal, "failed to get toppings: %v", err)
+	}
+
+	var pbProducts []*proto.Product
+	for _, topping := range products {
+		pbProducts = append(pbProducts, &proto.Product{
+			Id:          topping.Id,
+			Name:        topping.Name,
+			Price:       topping.Price,
+			Description: topping.Description,
+			Type:        topping.Type,
+		})
+	}
+
+	log.Printf("GetProductsByType response: %v", pbProducts)
+
+	return &proto.GetProductsByTypeResponse{Products: pbProducts}, nil
+}
