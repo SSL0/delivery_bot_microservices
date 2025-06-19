@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package cart;
+
+option go_package = "/proto";
+
+service Cart {
+    rpc AddItem(AddItemRequest) returns (AddItemResponse);
+    rpc RemoveCartItem(RemoveCartItemRequest) returns (RemoveCartItemResponse);
+}
+
+message RemoveCartItemRequest {
+    uint64 cart_item_id = 1;
+}
+
+message RemoveCartItemResponse {
+}
+
+message AddItemRequest{
+    uint64 user_id = 1;
+    uint64 item_id = 2;
+    string item_type = 3; // "product" || "topping"
+    uint32 quantity = 4;
+}
+
+message AddItemResponse {
+    uint64 added_cart_item_id = 1;
+}

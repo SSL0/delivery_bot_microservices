@@ -1,0 +1,6 @@
+{
+    "version": 1.0,
+    "db_url": "$POSTGRES_URL",
+    "migrations_path": "migrations",
+    "listening_address": ":5003"
+}
