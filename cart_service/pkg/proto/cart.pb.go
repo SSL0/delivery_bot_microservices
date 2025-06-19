@@ -131,7 +131,6 @@ type CartItem struct {
 	CartId        uint64                 `protobuf:"varint,2,opt,name=cart_id,json=cartId,proto3" json:"cart_id,omitempty"`
 	ItemId        uint64                 `protobuf:"varint,3,opt,name=item_id,json=itemId,proto3" json:"item_id,omitempty"`
 	Type          string                 `protobuf:"bytes,4,opt,name=type,proto3" json:"type,omitempty"`
-	Price         string                 `protobuf:"bytes,5,opt,name=price,proto3" json:"price,omitempty"`
 	Quantity      uint32                 `protobuf:"varint,6,opt,name=quantity,proto3" json:"quantity,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
@@ -191,13 +190,6 @@ func (x *CartItem) GetItemId() uint64 {
 func (x *CartItem) GetType() string {
 	if x != nil {
 		return x.Type
-	}
-	return ""
-}
-
-func (x *CartItem) GetPrice() string {
-	if x != nil {
-		return x.Price
 	}
 	return ""
 }
@@ -411,13 +403,12 @@ const file_pkg_proto_cart_proto_rawDesc = "" +
 	"\x0fGetCartResponse\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x17\n" +
 	"\auser_id\x18\x02 \x01(\x04R\x06userId\x12$\n" +
-	"\x05items\x18\x03 \x03(\v2\x0e.cart.CartItemR\x05items\"\x92\x01\n" +
+	"\x05items\x18\x03 \x03(\v2\x0e.cart.CartItemR\x05items\"|\n" +
 	"\bCartItem\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x04R\x02id\x12\x17\n" +
 	"\acart_id\x18\x02 \x01(\x04R\x06cartId\x12\x17\n" +
 	"\aitem_id\x18\x03 \x01(\x04R\x06itemId\x12\x12\n" +
-	"\x04type\x18\x04 \x01(\tR\x04type\x12\x14\n" +
-	"\x05price\x18\x05 \x01(\tR\x05price\x12\x1a\n" +
+	"\x04type\x18\x04 \x01(\tR\x04type\x12\x1a\n" +
 	"\bquantity\x18\x06 \x01(\rR\bquantity\"9\n" +
 	"\x15RemoveCartItemRequest\x12 \n" +
 	"\fcart_item_id\x18\x01 \x01(\x04R\n" +

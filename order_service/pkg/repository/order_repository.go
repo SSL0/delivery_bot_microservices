@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"catalog_service/pkg/model"
+	"order_service/pkg/model"
 
 	"github.com/jmoiron/sqlx"
 )
@@ -14,7 +14,7 @@ func NewOrderRepository(db *sqlx.DB) *OrderRepository {
 	return &OrderRepository{db}
 }
 
-func (r *OrderRepository) CreateOrderWithCart(cart model.Cart) (uint64, error) {
+func (r *OrderRepository) CreateOrder(order *model.Order) (uint64, error) {
 	var createdOrderId uint64
 
 	tx, err := r.db.Begin()
@@ -23,18 +23,18 @@ func (r *OrderRepository) CreateOrderWithCart(cart model.Cart) (uint64, error) {
 	}
 
 	err = tx.QueryRow(`
-		INSERT INTO order (
+		INSERT INTO orders (
 			user_id
 		) VALUES (
 			$1 
 		) RETURNING id
-	`, cart.UserId).Scan(&createdOrderId)
+	`, order.UserId).Scan(&createdOrderId)
 
 	if err != nil {
 		return 0, err
 	}
 
-	for _, item := range cart.Items {
+	for _, item := range order.Items {
 		var createdOrderItemId uint64
 		err := tx.QueryRow(`
 		INSERT INTO order_items (
@@ -45,8 +45,8 @@ func (r *OrderRepository) CreateOrderWithCart(cart model.Cart) (uint64, error) {
 			quantity
 		)  VALUES (
 			$1, $2, $3, $4, $5
-		) REUTRNING id
-		`, createdOrderId, item.ItemId, item.Type, item.Price, item.Quantity).Scan(createdOrderItemId)
+		) RETURNING id
+		`, createdOrderId, item.ItemId, item.Type, item.Price, item.Quantity).Scan(&createdOrderItemId)
 		if err != nil {
 			return 0, err
 		}
@@ -60,6 +60,6 @@ func (r *OrderRepository) CreateOrderWithCart(cart model.Cart) (uint64, error) {
 
 func (r *OrderRepository) GetOrderByCartId(cartId uint64) (*model.Order, error) {
 	var result model.Order
-	err := r.db.QueryRowx("SELECT * FROM order WHERE cart_id = $1 LIMIT 1", cartId).StructScan(&result)
+	err := r.db.QueryRowx("SELECT * FROM orders WHERE user_id = $1 LIMIT 1", cartId).StructScan(&result)
 	return &result, err
 }

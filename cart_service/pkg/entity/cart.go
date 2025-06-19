@@ -11,6 +11,5 @@ type CartItem struct {
 	CartId   uint64 `db:"cart_id"`
 	ItemId   uint64 `db:"item_id"`
 	Type     string `db:"type"` // "product" or "topping"
-	Price    string `db:"price"`
 	Quantity uint32 `db:"quantity"`
 }

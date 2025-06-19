@@ -25,12 +25,6 @@ func main() {
 	defer postgres.Close()
 
 	productClient := client.InitCatalogClient(config.CatalogServiceAddress)
-	// result, err := productClient.GetProduct(1)
-
-	// if err != nil {
-	// 	log.Fatalf("failed to get products: %v", err)
-	// }
-	// log.Printf("sucessfult get product by id %v", result.Product)
 
 	repo := repository.NewRepository(postgres)
 	cartServer := service.NewCartServer(repo, productClient)

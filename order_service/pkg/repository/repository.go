@@ -1,13 +1,13 @@
 package repository
 
 import (
-	"catalog_service/pkg/model"
+	"order_service/pkg/model"
 
 	"github.com/jmoiron/sqlx"
 )
 
 type Order interface {
-	CreateOrderWithCart(cart model.Cart) (uint64, error)
+	CreateOrder(order *model.Order) (uint64, error)
 	GetOrderByCartId(cartId uint64) (*model.Order, error)
 }
 

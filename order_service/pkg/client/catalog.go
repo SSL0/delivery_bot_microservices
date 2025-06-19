@@ -1,9 +1,10 @@
 package client
 
 import (
-	"catalog_service/pkg/proto"
 	"context"
 	"fmt"
+	"order_service/pkg/model"
+	"order_service/pkg/proto"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
@@ -27,26 +28,41 @@ func InitCatalogClient(url string) *CatalogClient {
 	return client
 }
 
-func (c *CatalogClient) GetProduct(productId uint64) (*proto.GetProductResponse, error) {
+func (c *CatalogClient) GetProduct(productId uint64) (*model.Product, error) {
 	req := &proto.GetProductRequest{
 		Id: productId,
 	}
 
-	return c.client.GetProduct(context.Background(), req)
-}
+	res, err := c.client.GetProduct(context.Background(), req)
 
-func (c *CatalogClient) GetProductToppings(productId uint64) (*proto.GetProductToppingsResponse, error) {
-	req := &proto.GetProductRequest{
-		Id: productId,
+	if err != nil {
+		return nil, err
 	}
 
-	return c.client.GetProductToppings(context.Background(), req)
+	return &model.Product{
+		Id:          res.Product.Id,
+		Name:        res.Product.Name,
+		Price:       res.Product.Price,
+		Description: res.Product.Description,
+		Type:        res.Product.Type,
+	}, nil
 }
 
-func (c *CatalogClient) GetTopping(toppingId uint64) (*proto.GetToppingResponse, error) {
+func (c *CatalogClient) GetTopping(toppingId uint64) (*model.Topping, error) {
 	req := &proto.GetToppingRequest{
 		Id: toppingId,
 	}
 
-	return c.client.GetTopping(context.Background(), req)
+	res, err := c.client.GetTopping(context.Background(), req)
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &model.Topping{
+		Id:        res.Topping.Id,
+		ProductId: res.Topping.ProductId,
+		Name:      res.Topping.Name,
+		Price:     res.Topping.Price,
+	}, nil
 }

@@ -47,12 +47,11 @@ func (r *CartRepository) AddItemToCartById(cart_id uint64, item model.CartItem) 
 			cart_id,
 			item_id,
 			type,
-			price,
 			quantity
 		)  VALUES (
-			$1, $2, $3, $4, $5
+			$1, $2, $3, $4,
 		) RETURNING id
-	`, item.CartId, item.ItemId, item.Type, item.Price, item.Quantity).Scan(&createdId)
+	`, item.CartId, item.ItemId, item.Type, item.Quantity).Scan(&createdId)
 	return createdId, err
 }
 

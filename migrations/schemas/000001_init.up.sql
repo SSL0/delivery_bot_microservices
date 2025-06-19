@@ -24,6 +24,17 @@ CREATE TABLE cart_items (
     type TEXT NOT NULL CHECK (
         type IN ('product', 'topping')
     ),
+    quantity INT CHECK (quantity > 0)
+);
+CREATE TABLE orders ( id SERIAL PRIMARY KEY, user_id BIGINT );
+
+CREATE TABLE order_items (
+    id SERIAL PRIMARY KEY,
+    order_id INT REFERENCES orders (id) ON DELETE CASCADE,
+    item_id INT,
+    type TEXT NOT NULL CHECK (
+        type IN ('product', 'topping')
+    ),
     price MONEY,
     quantity INT CHECK (quantity > 0)
 );

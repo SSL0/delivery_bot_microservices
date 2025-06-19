@@ -34,30 +34,24 @@ func (s *CartServer) AddItem(ctx context.Context, req *proto.AddItemRequest) (*p
 		return nil, status.Errorf(codes.Internal, "failed to get cart by user id %v", err)
 	}
 
-	var price string
 	if req.ItemType == "product" {
-		product, err := s.catalogService.GetProduct(req.ItemId)
+		_, err := s.catalogService.GetProduct(req.ItemId)
 		if err != nil {
 			log.Printf("failed to get product %v", err)
 			return nil, err
 		}
-		price = product.Product.Price
 	} else if req.ItemType == "topping" {
-		topping, err := s.catalogService.GetTopping(req.ItemId)
+		_, err := s.catalogService.GetTopping(req.ItemId)
 		if err != nil {
 			log.Printf("failed to get topping %v", err)
 			return nil, err
 		}
-		price = topping.Topping.Price
-	} else {
-		return nil, status.Errorf(codes.Internal, "unknown item type")
 	}
 
 	item := model.CartItem{
 		CartId:   cartId,
 		ItemId:   req.ItemId,
 		Type:     req.ItemType,
-		Price:    price,
 		Quantity: req.Quantity,
 	}
 	log.Printf("%v", item)
@@ -97,7 +91,6 @@ func (s *CartServer) GetCart(ctx context.Context, req *proto.GetCartRequest) (*p
 			CartId:   item.CartId,
 			ItemId:   item.ItemId,
 			Type:     item.Type,
-			Price:    item.Price,
 			Quantity: item.Quantity,
 		}
 		ptItems = append(ptItems, ptItem)
