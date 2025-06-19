@@ -79,3 +79,31 @@ func (s *CartServer) RemoveCartItem(ctx context.Context, req *proto.RemoveCartIt
 
 	return &proto.RemoveCartItemResponse{}, nil
 }
+
+func (s *CartServer) GetCart(ctx context.Context, req *proto.GetCartRequest) (*proto.GetCartResponse, error) {
+	log.Printf("GetCart requested: cart_item_id %v", req.CartId)
+
+	cart, err := s.repo.GetCartById(req.CartId)
+	if err != nil {
+		log.Printf("failed to get cart: %v", err)
+		return nil, status.Errorf(codes.Internal, "failed to get cart: %v", err)
+	}
+
+	var ptItems []*proto.CartItem
+
+	for _, item := range cart.Items {
+		ptItem := &proto.CartItem{
+			Id:       item.Id,
+			CartId:   item.CartId,
+			ItemId:   item.ItemId,
+			Type:     item.Type,
+			Price:    item.Price,
+			Quantity: item.Quantity,
+		}
+		ptItems = append(ptItems, ptItem)
+	}
+	log.Printf("GetCart response: cartId: %v userId: %v items: %v", cart.Id, cart.Id, cart.Items)
+
+	return &proto.GetCartResponse{Id: cart.Id, UserId: cart.Id, Items: ptItems}, nil
+
+}

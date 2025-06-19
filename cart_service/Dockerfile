@@ -10,6 +10,6 @@ WORKDIR /app
 COPY --from=build /app/cmd/cart_service/cart_service ./cmd/cart_service/cart_service
 COPY ./cmd/cart_service/config.json ./cmd/cart_service/
 
-EXPOSE 5001
+EXPOSE 5002
 
 CMD ["./cmd/cart_service/cart_service"]

@@ -7,6 +7,26 @@ option go_package = "/proto";
 service Cart {
     rpc AddItem(AddItemRequest) returns (AddItemResponse);
     rpc RemoveCartItem(RemoveCartItemRequest) returns (RemoveCartItemResponse);
+    rpc GetCart(GetCartRequest) returns (GetCartResponse);
+}
+
+message GetCartRequest {
+    uint64 cart_id = 1;
+}
+
+message GetCartResponse {
+    uint64 id = 1;
+    uint64 user_id = 2;
+    repeated CartItem items = 3;
+}
+
+message CartItem {
+    uint64 id = 1;
+    uint64 cart_id = 2;
+    uint64 item_id = 3;
+    string type = 4; 
+    string price = 5;
+    uint32 quantity = 6;
 }
 
 message RemoveCartItemRequest {
@@ -19,7 +39,7 @@ message RemoveCartItemResponse {
 message AddItemRequest{
     uint64 user_id = 1;
     uint64 item_id = 2;
-    string item_type = 3;
+    string item_type = 3; // "product" || "topping"
     uint32 quantity = 4;
 }
 
