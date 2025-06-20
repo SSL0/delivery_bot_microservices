@@ -63,7 +63,7 @@ func (s *CartServer) AddItem(ctx context.Context, req *proto.AddItemRequest) (*p
 	return &proto.AddItemResponse{AddedCartItemId: createdId}, nil
 }
 
-func (s *CartServer) RemoveCartItem(ctx context.Context, req *proto.RemoveCartItemRequest) (*proto.RemoveCartItemResponse, error) {
+func (s *CartServer) RemoveItem(ctx context.Context, req *proto.RemoveItemRequest) (*proto.RemoveItemResponse, error) {
 	log.Printf("RemoveCartItem requested: cart_item_id %v", req.CartItemId)
 	err := s.repo.RemoveCartItemById(req.CartItemId)
 	if err != nil {
@@ -71,7 +71,7 @@ func (s *CartServer) RemoveCartItem(ctx context.Context, req *proto.RemoveCartIt
 		return nil, status.Errorf(codes.Internal, "failed to remove cart item by id: %v", err)
 	}
 
-	return &proto.RemoveCartItemResponse{}, nil
+	return &proto.RemoveItemResponse{}, nil
 }
 
 func (s *CartServer) GetCart(ctx context.Context, req *proto.GetCartRequest) (*proto.GetCartResponse, error) {
