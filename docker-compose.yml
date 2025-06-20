@@ -32,7 +32,7 @@ services:
         condition: service_healthy 
   catalog_service:
     build:
-      context: catalog_service/
+      context: catalog/
     ports:
       - "5001:5001"
     restart: on-failure:5
@@ -48,7 +48,7 @@ services:
         required: false
   cart_service:
     build:
-      context: cart_service/
+      context: cart/
     ports:
       - "5002:5002"
     restart: on-failure:5
@@ -64,7 +64,7 @@ services:
         required: false
   order_service:
     build:
-      context: order_service/
+      context: order/
     ports:
       - "5003:5003"
     restart: on-failure:5

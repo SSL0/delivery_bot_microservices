@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="aa50f7d2-724d-4d8c-972b-95f8746c1374" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/cart/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/cart/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/cmd/cart_service/cart_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/cmd/cart/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/cmd/cart_service/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/cart/cmd/cart/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/cart/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/cart/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/client/catalog.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/client/catalog.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/entity/cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/entity/cart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/model/cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/model/cart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/proto/cart.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/proto/cart.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/proto/cart.proto" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/proto/cart.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/proto/cart_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/proto/cart_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/proto/catalog.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/proto/catalog.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/proto/catalog.proto" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/proto/catalog.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/proto/catalog_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/proto/catalog_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/repository/cart_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/repository/cart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/repository/postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/repository/postgres.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/repository/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/repository/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cart_service/pkg/service/cart_server.go" beforeDir="false" afterPath="$PROJECT_DIR$/cart/pkg/service/cart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/cmd/catalog_service/catalog_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/cmd/catalog/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/cmd/catalog_service/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/cmd/catalog/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/pkg/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/pkg/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/pkg/model/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/pkg/model/product.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/pkg/model/topping.go" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/pkg/model/topping.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/pkg/proto/catalog.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/pkg/proto/catalog.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/pkg/proto/catalog.proto" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/pkg/proto/catalog.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/pkg/proto/catalog_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/pkg/proto/catalog_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/pkg/repository/postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/pkg/repository/postgres.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/pkg/repository/product_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/pkg/repository/product.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/pkg/repository/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/pkg/repository/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/pkg/repository/topping_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/pkg/repository/topping.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog_service/pkg/service/catalog.go" beforeDir="false" afterPath="$PROJECT_DIR$/catalog/pkg/service/catalog.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/docker-compose.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/order/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/cmd/order_service/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/order/cmd/order/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/cmd/order_service/order_service.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/cmd/order/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/order/go.mod" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/order/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/client/cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/client/cart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/client/catalog.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/client/catalog.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/client/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/client/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/model/cart.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/model/cart.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/model/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/model/order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/model/product.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/model/product.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/model/topping.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/model/topping.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/proto/cart.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/proto/cart.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/proto/cart.proto" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/proto/cart.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/proto/cart_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/proto/cart_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/proto/catalog.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/proto/catalog.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/proto/catalog.proto" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/proto/catalog.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/proto/catalog_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/proto/catalog_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/proto/order.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/proto/order.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/proto/order.proto" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/proto/order.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/proto/order_grpc.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/proto/order_grpc.pb.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/repository/order_repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/repository/order.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/repository/postgres.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/repository/postgres.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/repository/repository.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/repository/repository.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/order_service/pkg/service/order.go" beforeDir="false" afterPath="$PROJECT_DIR$/order/pkg/service/order.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" url="file://C:/Program Files/Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2ymJf6AFN2BCD3fr0wBEWQSpJXh" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.automatic.dependencies.download": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "C:/Users/Log1c0",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "postgresql"
+    ]
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-gosdk-2946fb9b3188-155fe4b6e3a0-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-233.14475.38" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>
