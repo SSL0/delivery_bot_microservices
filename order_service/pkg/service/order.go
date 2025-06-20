@@ -71,7 +71,7 @@ func (s *OrderService) CreateOrderByCart(
 	}
 
 	newOrder := &model.Order{
-		UserId: req.CartId,
+		UserId: pbCart.UserId,
 		Items:  newOrderItems,
 	}
 	createdOrderId, err := s.repo.CreateOrder(newOrder)

@@ -75,7 +75,7 @@ func (s *CartServer) RemoveCartItem(ctx context.Context, req *proto.RemoveCartIt
 }
 
 func (s *CartServer) GetCart(ctx context.Context, req *proto.GetCartRequest) (*proto.GetCartResponse, error) {
-	log.Printf("GetCart requested: cart_item_id %v", req.CartId)
+	log.Printf("GetCart requested: cart_id %v", req.CartId)
 
 	cart, err := s.repo.GetCartById(req.CartId)
 	if err != nil {
@@ -97,6 +97,18 @@ func (s *CartServer) GetCart(ctx context.Context, req *proto.GetCartRequest) (*p
 	}
 	log.Printf("GetCart response: cartId: %v userId: %v items: %v", cart.Id, cart.Id, cart.Items)
 
-	return &proto.GetCartResponse{Id: cart.Id, UserId: cart.Id, Items: ptItems}, nil
+	return &proto.GetCartResponse{Id: cart.Id, UserId: cart.UserId, Items: ptItems}, nil
 
+}
+
+func (s *CartServer) GetCartIdByUserId(ctx context.Context, req *proto.GetCartIdByUserIdRequest) (*proto.GetCartIdByUserIdReponse, error) {
+	log.Printf("GetCartIdByUserId requested: user_id %v", req.UserId)
+
+	cartId, err := s.repo.GetOrCreateCartIdByUserId(req.UserId)
+	if err != nil {
+		log.Printf("failed to GetOrCreateCartIdByUserId: %v", err)
+		return nil, status.Errorf(codes.Internal, "failed to GetOrCreateCartIdByUserId: %v", err)
+	}
+	log.Printf("GetCartIdByUserId response: cartId: %v", cartId)
+	return &proto.GetCartIdByUserIdReponse{CartId: cartId}, err
 }

@@ -2,7 +2,7 @@ package client
 
 import (
 	"context"
-	"fmt"
+	"log"
 	"order_service/pkg/model"
 	"order_service/pkg/proto"
 
@@ -18,7 +18,7 @@ func InitCartClient(url string) *CartClient {
 	conn, err := grpc.NewClient(url, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	if err != nil {
-		fmt.Println("Could not connect:", err)
+		log.Println("Could not connect:", err)
 	}
 
 	client := &CartClient{
@@ -26,6 +26,19 @@ func InitCartClient(url string) *CartClient {
 	}
 
 	return client
+}
+
+func (c *CartClient) GetCartIdByUserId(userId uint64) (uint64, error) {
+	req := &proto.GetCartIdByUserIdRequest{
+		UserId: userId,
+	}
+
+	res, err := c.client.GetCartIdByUserId(context.Background(), req)
+	if err != nil {
+		return 0, err
+	}
+
+	return res.CartId, err
 }
 
 func (c *CartClient) GetCart(cartId uint64) (*model.Cart, error) {

@@ -40,6 +40,31 @@ func (r *CartRepository) GetCartById(id uint64) (*model.Cart, error) {
 	return &result, err
 }
 
+func (r *CartRepository) GetCartByUserId(userId uint64) (*model.Cart, error) {
+	var result model.Cart
+	err := r.db.QueryRowx("SELECT * FROM carts WHERE user_id = $1 LIMIT 1", userId).StructScan(&result)
+	if err != nil {
+		return &model.Cart{}, err
+	}
+
+	rows, err := r.db.Queryx("SELECT * FROM cart_items WHERE cart_id = $1", result)
+
+	var items []model.CartItem
+
+	for rows.Next() {
+		var item model.CartItem
+		if err := rows.StructScan(&item); err != nil {
+			return nil, err
+		}
+
+		items = append(items, item)
+	}
+
+	result.Items = items
+
+	return &result, err
+}
+
 func (r *CartRepository) AddItemToCartById(cart_id uint64, item model.CartItem) (uint64, error) {
 	var createdId uint64
 	err := r.db.QueryRowx(`
@@ -49,7 +74,7 @@ func (r *CartRepository) AddItemToCartById(cart_id uint64, item model.CartItem) 
 			type,
 			quantity
 		)  VALUES (
-			$1, $2, $3, $4,
+			$1, $2, $3, $4
 		) RETURNING id
 	`, item.CartId, item.ItemId, item.Type, item.Quantity).Scan(&createdId)
 	return createdId, err

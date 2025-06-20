@@ -2,7 +2,7 @@ package client
 
 import (
 	"context"
-	"fmt"
+	"log"
 	"order_service/pkg/model"
 	"order_service/pkg/proto"
 
@@ -18,7 +18,7 @@ func InitCatalogClient(url string) *CatalogClient {
 	conn, err := grpc.NewClient(url, grpc.WithTransportCredentials(insecure.NewCredentials()))
 
 	if err != nil {
-		fmt.Println("Could not connect:", err)
+		log.Println("Could not connect:", err)
 	}
 
 	client := &CatalogClient{

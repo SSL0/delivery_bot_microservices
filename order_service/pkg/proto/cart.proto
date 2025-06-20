@@ -8,7 +8,18 @@ service Cart {
     rpc AddItem(AddItemRequest) returns (AddItemResponse);
     rpc RemoveCartItem(RemoveCartItemRequest) returns (RemoveCartItemResponse);
     rpc GetCart(GetCartRequest) returns (GetCartResponse);
+    rpc GetCartIdByUserId(GetCartIdByUserIdRequest) returns(GetCartIdByUserIdReponse);
 }
+
+
+message GetCartIdByUserIdRequest {
+    uint64 user_id = 1;
+}
+
+message GetCartIdByUserIdReponse {
+    uint64 cart_id = 1;
+}
+
 
 message GetCartRequest {
     uint64 cart_id = 1;

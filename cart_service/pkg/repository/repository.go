@@ -8,6 +8,7 @@ import (
 
 type Cart interface {
 	GetCartById(id uint64) (*model.Cart, error)
+	GetCartByUserId(userId uint64) (*model.Cart, error)
 	GetOrCreateCartIdByUserId(userId uint64) (uint64, error)
 	AddItemToCartById(cart_id uint64, item model.CartItem) (uint64, error)
 	RemoveCartItemById(id uint64) error
