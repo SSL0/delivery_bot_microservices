@@ -68,3 +68,12 @@ func (c *CartClient) GetCart(cartId uint64) (*model.Cart, error) {
 		Items:  cartItems,
 	}, nil
 }
+
+func (c *CartClient) RemoveCart(cartId uint64) error {
+	req := &proto.RemoveCartRequest{
+		CartId: cartId,
+	}
+
+	_, err := c.client.RemoveCart(context.Background(), req)
+	return err
+}

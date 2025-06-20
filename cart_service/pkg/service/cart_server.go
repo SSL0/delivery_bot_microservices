@@ -112,3 +112,9 @@ func (s *CartServer) GetCartIdByUserId(ctx context.Context, req *proto.GetCartId
 	log.Printf("GetCartIdByUserId response: cartId: %v", cartId)
 	return &proto.GetCartIdByUserIdReponse{CartId: cartId}, err
 }
+
+func (s *CartServer) RemoveCart(ctx context.Context, req *proto.RemoveCartRequest) (*proto.RemoveCartResponse, error) {
+	log.Printf("RemoveCart requested: cart_id %v", req.CartId)
+	err := s.repo.RemoveCartById(req.CartId)
+	return &proto.RemoveCartResponse{}, err
+}

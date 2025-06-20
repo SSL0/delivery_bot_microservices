@@ -65,7 +65,7 @@ func (r *CartRepository) GetCartByUserId(userId uint64) (*model.Cart, error) {
 	return &result, err
 }
 
-func (r *CartRepository) AddItemToCartById(cart_id uint64, item model.CartItem) (uint64, error) {
+func (r *CartRepository) AddItemToCartById(cartId uint64, item model.CartItem) (uint64, error) {
 	var createdId uint64
 	err := r.db.QueryRowx(`
 		INSERT INTO cart_items (
@@ -98,4 +98,13 @@ func (r *CartRepository) GetOrCreateCartIdByUserId(userId uint64) (uint64, error
 		}
 	}
 	return result, nil
+}
+
+func (r *CartRepository) RemoveCartById(cartId uint64) error {
+	_, err := r.db.Exec("DELETE FROM cart_items WHERE cart_id = $1", cartId)
+	if err != nil {
+		return err
+	}
+	_, err = r.db.Exec("DELETE FROM carts WHERE id = $1", cartId)
+	return err
 }

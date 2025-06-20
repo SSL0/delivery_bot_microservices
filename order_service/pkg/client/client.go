@@ -5,6 +5,7 @@ import "order_service/pkg/model"
 type Cart interface {
 	GetCart(cartId uint64) (*model.Cart, error)
 	GetCartIdByUserId(userId uint64) (uint64, error)
+	RemoveCart(cartId uint64) error
 }
 
 type Catalog interface {

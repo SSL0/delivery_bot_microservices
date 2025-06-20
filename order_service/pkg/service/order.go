@@ -80,6 +80,11 @@ func (s *OrderService) CreateOrderByCart(
 		return nil, status.Errorf(codes.Internal, "failed to create order: %v", err)
 	}
 
+	err = s.client.RemoveCart(req.CartId)
+	if err != nil {
+		log.Printf("failed to remove cart, but order created: %v", err)
+		return nil, status.Errorf(codes.Internal, "failed remove cart, but order created: %v", err)
+	}
 	log.Printf("CreateOrderByCart complete: order %v", createdOrderId)
 	return &proto.CreateOrderByCartResponse{}, nil
 }
