@@ -61,7 +61,7 @@ class CartClient extends Client {
 }
 
 const PROTO_PATH = __dirname + '/protos/cart.proto';
-const CART_SERVICE_ADDRESS = 'localhost:5002';
+const CART_SERVICE_ADDRESS = 'cart_service:5002';
 
 const cartClient = new CartClient(PROTO_PATH, CART_SERVICE_ADDRESS);
 

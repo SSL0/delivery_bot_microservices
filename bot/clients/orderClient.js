@@ -19,7 +19,7 @@ class OrderClient extends Client {
 }
 
 const PROTO_PATH = __dirname + '/protos/order.proto';
-const ORDER_SERVICE_ADDRESS = 'localhost:5003';
+const ORDER_SERVICE_ADDRESS = 'order_service:5003';
 
 const orderClient = new OrderClient(PROTO_PATH, ORDER_SERVICE_ADDRESS);
 

@@ -46,7 +46,7 @@ class CatalogClient extends Client {
 }
 
 const PROTO_PATH = __dirname + '/protos/catalog.proto';
-const CATALOG_SERVICE_ADDRESS = 'localhost:5001';
+const CATALOG_SERVICE_ADDRESS = 'catalog_service:5001';
 
 const catalogClient = new CatalogClient(PROTO_PATH, CATALOG_SERVICE_ADDRESS);
 

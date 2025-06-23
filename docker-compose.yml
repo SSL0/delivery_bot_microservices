@@ -20,7 +20,6 @@ services:
     build:
       context: 
         ./migrations
-    # entrypoint: /app/migrate.sh
     restart: on-failure:5
     env_file:
       - path: ./default.env
@@ -67,6 +66,20 @@ services:
       context: order/
     ports:
       - "5003:5003"
+    restart: on-failure:5
+    depends_on:
+      postgres:
+        condition: service_healthy
+      postgres_migration:
+        condition: service_completed_successfully
+    env_file:
+      - path: ./default.env
+        required: true
+      - path: ./.env
+        required: false
+  bot_service:
+    build:
+      context: bot/
     restart: on-failure:5
     depends_on:
       postgres:
