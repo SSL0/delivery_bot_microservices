@@ -1,7 +1,6 @@
 const { Telegraf, Markup, Scenes, session } = require('telegraf');
-const { MenuTemplate, MenuMiddleware } = require('telegraf-inline-menu');
 
-const scenes = require('./scence/')
+const scenes = require('./scenes')
 
 
 class TelegramBot {
