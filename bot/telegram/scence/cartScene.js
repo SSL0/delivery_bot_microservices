@@ -4,12 +4,20 @@ const cartScene = new Scenes.BaseScene('cart');
 
 const cartClient = require('../../clients/cartClient')
 const catalogClient = require('../../clients/catalogClient');
-const { loadFileDescriptorSetFromObject } = require('@grpc/proto-loader');
+const orderClient = require('../../clients/orderClient');
 
 cartScene.enter(async (ctx) => {
-    const userId = 1001;
+    const userId = ctx.from.id;
+
     const cartId = await cartClient.getCartIdByUserId(userId);
+    ctx.session.cartId = cartId;
+
     const userCart = await cartClient.getCart(cartId);
+
+    if(userCart.items.length == 0) {
+        await ctx.reply('Корзина пуста, выберете товары в каталоге.');
+        return;
+    }
 
     const displayCart = {}
 
@@ -41,25 +49,28 @@ cartScene.enter(async (ctx) => {
     let output = '';
     let totalCost = 0.0;
 
-    for (const [key, value] of Object.entries(displayCart)) {
+    for (const [_, value] of Object.entries(displayCart)) {
         const price = parseFloat(value.price.substring(1));
         totalCost += price;
         output += `${value.name}(${value.price}) * ${value.quantity} = $${price * parseFloat(value.quantity)}\n`;
         value.toppings.forEach(topping => {
+            totalCost += parseFloat(topping.price.substring(1));
             output += `\t+ ${topping.name}(${topping.price})\n`;
         });
         output += '\n';
     }
     output += `Итого $${totalCost}`;
-    ctx.reply(output, keyboard)
+    await ctx.reply(output, keyboard)
 });
 
-cartScene.action('order', (ctx) => ctx.scene.enter('order'));
-cartScene.action('to_catalog', (ctx) => ctx.scene.enter('catalog'));
+cartScene.action('order', async (ctx) => {
+    await orderClient.createOrderByCart(ctx.session.cartId);
+    await ctx.editMessageText('Заказ успешно сделан, ожидайте доставки');
+});
+
 cartScene.action('clear_cart', async (ctx) => {
-    await UserCart.findOneAndDelete({ userId: ctx.from.id });
+    await cartClient.removeCart(ctx.session.cartId);
     await ctx.editMessageText('Корзина очищена');
-    await ctx.scene.enter('catalog');
 });
   
 module.exports = cartScene;
