@@ -24,8 +24,31 @@ class CartClient extends Client {
                 resolve(res);
             });
         });
-    
     }
+
+    async addItem(itemId, itemType, quantity, userid){
+        return new Promise((resolve, reject) => {
+            this.stub.addItem({
+                "item_id": itemId, 
+                "item_type": itemType,
+                "quantity": quantity,
+                "user_id": userid
+            }, (err, res) => {
+                if (err) return reject(err);
+                resolve(res.added_cart_item_id);
+            });
+        });
+    }
+
+    async removeCart(cartId){
+        return new Promise((resolve, reject) => {
+            this.stub.removeCart({"cart_id": cartId}, (err, res) => {
+                if (err) return reject(err);
+                resolve(res);
+            });
+        });
+    }
+
 }
 
 const PROTO_PATH = __dirname + '/protos/cart.proto';

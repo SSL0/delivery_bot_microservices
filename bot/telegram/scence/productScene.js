@@ -1,5 +1,6 @@
 const { Markup, Scenes } = require('telegraf');
-const catalogClient = require('../../clients/catalogClient')
+const catalogClient = require('../../clients/catalogClient');
+const cartClient = require('../../clients/cartClient');
 
 const productScene = new Scenes.BaseScene('product');
 productScene.enter(async (ctx) => {
@@ -76,6 +77,19 @@ productScene.action('finish_toppings', async (ctx) => {
     const { productId, toppingsIds } = ctx.session.cartItem;
 
     const product = await catalogClient.getProduct(productId);
+
+    const addedCartItemId = await cartClient.addItem(productId, 'product', 1, ctx.from.id);
+    if(addedCartItemId === undefined) {
+        console.error(`failed to add product with id ${productId} to cart`);
+        return;
+    }
+    toppingsIds.forEach(async (toppingId) => {  
+        const addedCartItemId = await cartClient.addItem(toppingId, 'topping', 1, ctx.from.id);
+        if(addedCartItemId === undefined) {
+            console.error(`failed to add topping with id ${toppingId} to cart`);
+            return;
+        }
+    });
 
     await ctx.editMessageText(`Товар "${product.name}" с выбранными топпингами добавлен в корзину!`);
     await ctx.scene.enter('catalog');

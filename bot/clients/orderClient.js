@@ -1,19 +1,26 @@
 const grpc = require('@grpc/grpc-js');
-const protoLoader = require('@grpc/proto-loader');
 
-const PROTO_PATH = __dirname + '/protos/order.proto'
-const packageDefinition = protoLoader.loadSync(
-    PROTO_PATH,
-    {
-        keepCase: true,
-        longs: String,
-        enums: String,
-        defaults: true,
-        oneofs: true
+const Client = require('./client')
+
+class OrderClient extends Client {
+    constructor(protoPath, serviceAddress){
+        super(protoPath);
+        this.stub = new this.protoDescriptor.order.Order(serviceAddress, grpc.credentials.createInsecure());
     }
-);
 
-const orderService = grpc.loadPackageDefinition(packageDefinition).order;
-const orderClient = new orderService.Order('localhost:5003', grpc.credentials.createInsecure());
+    async createOrderByCart(cartId) {
+        return new Promise((resolve, reject) => {
+            this.stub.createOrderByCart({"cart_id": cartId}, (err, res) => {
+                if (err) return reject(err);
+                resolve(res);
+            });
+        });
+    }
+}
 
-module.exports = orderClient;
+const PROTO_PATH = __dirname + '/protos/order.proto';
+const ORDER_SERVICE_ADDRESS = 'localhost:5003';
+
+const orderClient = new OrderClient(PROTO_PATH, ORDER_SERVICE_ADDRESS);
+
+module.exports = orderClient
