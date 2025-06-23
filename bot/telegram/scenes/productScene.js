@@ -9,13 +9,13 @@ productScene.enter(async (ctx) => {
     const product = await catalogClient.getProduct(productId);
    
     if (!product) {
-      await ctx.reply('Товар не найден');
-      return ctx.scene.leave();
+		await ctx.reply('Товар не найден');
+		return ctx.scene.leave();
     }
     
     const keyboard = Markup.inlineKeyboard([
-      [Markup.button.callback('➕ Добавить в корзину', 'add_to_cart')],
-      [Markup.button.callback('🔙 Назад', 'back_to_catalog')]
+		[Markup.button.callback('➕ Добавить в корзину', 'add_to_cart')],
+		[Markup.button.callback('🔙 Назад', 'back_to_catalog')]
     ]);
     
     let message = `*${product.name}*\n\n`;
@@ -23,13 +23,14 @@ productScene.enter(async (ctx) => {
     message += `*Цена:* ${product.price}`;
     
     if (product.image) {
-      await ctx.replyWithPhoto(product.image, {
-        caption: message,
-        parse_mode: 'Markdown',
-        ...keyboard
-      });
+		await ctx.replyWithPhoto(product.image, {
+			caption: message,
+			parse_mode: 'Markdown',
+			...keyboard
+		});
     } else {
-      await ctx.reply(message, { parse_mode: 'Markdown', ...keyboard });
+		await ctx.deleteMessage();
+		await ctx.reply(message, { parse_mode: 'Markdown', ...keyboard });
     }
 });
 
@@ -40,23 +41,27 @@ productScene.action('add_to_cart', async (ctx) => {
     const toppings = await catalogClient.getProductToppings(productId);
 
     if (toppings.length > 0) {
-      ctx.session.cartItem = { productId, toppingsIds: [] };
-      
-      const keyboard = Markup.inlineKeyboard([
-        ...toppings.map(topping => [
-          Markup.button.callback(
-            `${topping.name} +${topping.price}`, 
-            `topping_${topping.id}`
-          )
-        ]),
-        [Markup.button.callback('✅ Завершить выбор', 'finish_toppings')]
-      ], { columns: 2 });
-      
-      await ctx.editMessageText(`Выберите топпинги для "${product.name}":`, keyboard);
+		ctx.session.cartItem = { productId, toppingsIds: [] };
+		
+		const keyboard = Markup.inlineKeyboard([
+		...toppings.map(topping => [
+			Markup.button.callback(
+			`${topping.name} +${topping.price}`, 
+			`topping_${topping.id}`
+			)
+		]),
+		[Markup.button.callback('✅ Завершить выбор', 'finish_toppings')]
+		], { columns: 2 });
+		
+		await ctx.editMessageText(`Выберите топпинги для "${product.name}":`, keyboard);
     } else {
-      await addToCart(ctx, productId, []);
-      await ctx.editMessageText(`Товар "${product.name}" добавлен в корзину!`);
-      await ctx.scene.enter('catalog');
+		const addedCartItemId = await cartClient.addItem(productId, 'product', 1, ctx.from.id);
+		if(addedCartItemId === undefined) {
+			console.error(`failed to add product with id ${productId} to cart`);
+			return;
+		}
+		await ctx.editMessageText(`Товар "${product.name}" добавлен в корзину!`);
+		await ctx.scene.enter('catalog');
     }
 });
   
@@ -65,11 +70,11 @@ productScene.action(/topping_(.+)/, async (ctx) => {
     const topping = await catalogClient.getTopping(toppingId);
     
     if (!ctx.session.cartItem.toppingsIds.includes(toppingId)) {
-      ctx.session.cartItem.toppingsIds.push(toppingId);
-      await ctx.answerCbQuery(`Добавлен: ${topping.name}`);
+		ctx.session.cartItem.toppingsIds.push(toppingId);
+		await ctx.answerCbQuery(`Добавлен: ${topping.name}`);
     } else {
-      ctx.session.cartItem.toppingsIds = ctx.session.cartItem.toppingsIds.filter(id => id !== toppingId);
-      await ctx.answerCbQuery(`Удалён: ${topping.name}`);
+		ctx.session.cartItem.toppingsIds = ctx.session.cartItem.toppingsIds.filter(id => id !== toppingId);
+		await ctx.answerCbQuery(`Удалён: ${topping.name}`);
     }
 });
   
