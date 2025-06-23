@@ -1,3 +1,5 @@
 pgdata
 TODO.txt
 .env
+*/.idea
+*/node_modules

@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package catalog;
+
+option go_package = "/proto";
+
+service Catalog {
+    rpc GetProduct(GetProductRequest) returns (GetProductResponse);
+    rpc GetProductToppings(GetProductRequest) returns (GetProductToppingsResponse);
+    rpc GetTopping(GetToppingRequest) returns (GetToppingResponse);
+    rpc GetProductsByType(GetProductsByTypeRequest) returns (GetProductsByTypeResponse);
+}
+
+message GetProductsByTypeRequest {
+    string type = 1;
+}
+
+message GetProductsByTypeResponse {
+    repeated Product products = 1;
+} 
+
+message Product {
+    uint64 id = 1;
+    string name = 2;
+    string price = 3;
+    string description = 4;
+    string type = 5;
+}
+
+message Topping {
+    uint64 id = 1;
+    uint64 product_id = 2;
+    string name = 3;
+    string price = 4;
+}
+
+message GetProductRequest {
+    uint64 id = 1;
+}
+
+message GetProductResponse {
+    Product product = 1;
+}
+
+message GetProductToppingsResponse {
+    repeated Topping toppings = 1;
+}
+
+message GetToppingRequest {
+    uint64 id = 1;
+}
+
+message GetToppingResponse {
+    Topping topping = 1;
+}
