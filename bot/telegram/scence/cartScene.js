@@ -37,7 +37,7 @@ cartScene.enter(async (ctx) => {
         } else if (cartItem.type === "topping") {
             const topping = await catalogClient.getTopping(cartItem.item_id);
     
-            const parentProduct = displayCart.find(
+            const parentProduct = displayCart.findLast(
                 item => item.product_id === topping.product_id
             );
     
@@ -92,7 +92,7 @@ cartScene.action('delete', async (ctx) => {
     for (const [_, value] of Object.entries(ctx.session.cart)) {
         buttons.push(Markup.button.callback(value.name, `delete_${value.cart_item_id}`));
     }
-    
+
     const keyboard = Markup.inlineKeyboard(buttons, {columns: 1});
     await ctx.reply('Какой товар вы хотите удалить из корзины?', keyboard);
 });
