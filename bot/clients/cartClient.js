@@ -40,6 +40,15 @@ class CartClient extends Client {
         });
     }
 
+    async removeItem(cartItemId){
+        return new Promise((resolve, reject) => {
+            this.stub.removeItem({"cart_item_id": cartItemId}, (err, res) => {
+                if (err) return reject(err);
+                resolve(res);
+            });
+        });
+    }
+
     async removeCart(cartId){
         return new Promise((resolve, reject) => {
             this.stub.removeCart({"cart_id": cartId}, (err, res) => {
